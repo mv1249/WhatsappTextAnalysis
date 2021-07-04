@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Bootstrap CSS files -->
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Chart js -->
+    <!-- datasource -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datasource@0.1.0"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <!-- Fontawesome -->
+
+    <script src="https://kit.fontawesome.com/043883177b.js" crossorigin="anonymous"></script>
+
+
+
+    <title>WhatsApp Text Analyzer</title>
+</head>
+
+<body class="bg-dark">
+    <div class="container my-4">
+
+        <!--Cards and Search bar-->
+        <div class="row">
+
+            <div class="col px-4">
+                <h1 style="text-align:center;font-size:2rem;color:white;font-weight:bold;">WhatsApp Text Analyzer
+                </h1>
+            </div>
+
+
+            <!-- Cards -->
+
+            <div class=" grey-bg container-fluid my-4 ">
+                <section id=" minimal-statistics ">
+                    <div class=" row ">
+
+                        <!-- Total Messages in the group -->
+
+                        <div class=" col-xl-3 col-sm-6 col-12 ">
+                            <div class=" card ">
+                                <div class=" card-content ">
+                                    <div class=" card-body ">
+                                        <div class=" media d-flex ">
+                                            <div class=" align-self-center ">
+                                                <i class=" icon-graph primary font-large-2 float-left "></i>
+                                            </div>
+                                            <div class=" media-body text-right ">
+                                                <span class='statename'>Total Messages Sent</span>
+                                                <h3 class='active'>{{total_msg}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Users in the Group -->
+
+                        <div class=" col-xl-3 col-sm-6 col-12 ">
+                            <div class=" card ">
+                                <div class=" card-content ">
+                                    <div class=" card-body ">
+                                        <div class=" media d-flex ">
+                                            <div class=" align-self-center ">
+                                                <i class=" icon-graph success font-large-2 float-left "></i>
+                                            </div>
+                                            <div class=" media-body text-right ">
+                                                <span class='confirmedstate'>Total Users</span>
+                                                <h3 class=" confirmed ">{{totaluser}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Media Links  -->
+
+
+                        <div class=" col-xl-3 col-sm-6 col-12 ">
+                            <div class=" card ">
+                                <div class=" card-content ">
+                                    <div class=" card-body ">
+                                        <div class=" media d-flex ">
+                                            <div class=" align-self-center ">
+                                                <i class=" icon-graph success font-large-2 float-left "></i>
+                                            </div>
+                                            <div class=" media-body text-right ">
+                                                <span class='recoveredstate'>Media Links Shared</span>
+                                                <h3 class=" recovered ">{{media}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--Word Count-->
+                        <div class=" col-xl-3 col-sm-6 col-12 ">
+                            <div class=" card ">
+                                <div class=" card-content ">
+                                    <div class=" card-body ">
+                                        <div class=" media d-flex ">
+                                            <div class=" align-self-center ">
+                                                <i class=" icon-graph danger font-large-2 float-left "></i>
+                                            </div>
+                                            <div class=" media-body text-right ">
+                                                <span class='deathstate'>WordCount</span>
+                                                <h3 class=" deaths ">{{words}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                </div>
+
+
+
+
+            </div>
+
+            <!-- Charts -->
+            <div class="row">
+
+               <!-- Message Count -->
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="chart-container my-3">
+                        <label for="banana" style="text-align:center;font-size:1.3rem;color:white;font-weight: bold;">Messages by most
+                            Active Users</label>
+                        <canvas height="300" width="300" id="chart"></canvas>
+                    </div>
+                </div>
+
+                <!--Avg words per message-->
+
+                <div class="col-md-4">
+                    <div class="chart-container my-3">
+                        <label for="banana" style="text-align:center;font-size:1.3rem;font-weight: bold;color:white;">Average Words in one Message</label>
+                        <canvas height="300" width="300" id="chartnew"></canvas>
+                    </div>
+
+                </div>
+                 
+                 <!--Messages sent per week-->
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="chart-container my-3">
+                        <label for="banana" style="text-align:center;font-size:1.2rem;font-weight: bold;color:white;">Messages Sent on Each Day Per Week</label>
+                        <canvas height="300" width="300" id="chartnew1"></canvas>
+                    </div>
+
+                </div>
+                 
+                 <!--Top Media Contributors-->
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="chart-container my-3">
+                        <label for="banana" style="text-align:center;font-size:1.2rem;font-weight: bold;color:white;">Top Media Contributors</label>
+                        <canvas height="300" width="300" id="chartnew2"></canvas>
+                    </div>
+
+                </div>
+                
+                
+                <!--Time when the Group was highly Active-->
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="chart-container my-3">
+                        <label for="banana" style="text-align:center;font-size:1.3rem;font-weight: bold;color:white;">Time when the Group was highly Active</label>
+                        <canvas height="300" width="300" id="chartnew3"></canvas>
+                    </div>
+
+                </div>
+                  
+                <!--Most Active Month and Most Active Year-->
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="chart-container my-3">
+                        <label for="banana" style="text-align:center;font-size:1.3rem;font-weight: bold;color:white;">Most Active Month and Most Active Year</label>
+                        <canvas height="300" width="300" id="chartnew4"></canvas>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+            {%block script%}
+            <script type=" text/javascript ">
+                window.onload = () => {
+                    top10user = {{top10user | safe}};
+                    msg10count = {{msg10count | safe}};
+                    avguser  =   {{avguser|safe}};
+                    avguserword=  {{avguserword|safe}};
+                    days = {{days|safe}};
+                    msgday = {{msgday|safe}};
+                    mediauser= {{mediauser|safe}};
+                    mediacount= {{mediacount|safe}};
+                    time = {{time|safe}};
+                    timecount = {{timecount|safe}};
+                    df_18_month = {{df_18_month|safe}},
+                    df_18_count = {{df_18_count|safe}},
+                    df_19_count = {{df_19_count|safe}},
+                    df_20_count = {{df_20_count|safe}};
+                    df_21_count = {{df_21_count|safe}};
+
+
+
+                   
+                    //Chart1
+
+                    var ctx = document.getElementById('chart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels:top10user,
+                                datasets: [{
+                                    labels:top10user,
+                                    data: msg10count,
+                                    backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(54, 162, 235)',
+                                    'rgba(153, 102, 255)',
+                                    'rgba(255, 159, 64)',
+                                    'rgba(250, 157, 60)',
+                                    'rgba(255, 208, 142)',
+                                    'rgb(233, 194, 191)'
+                                    ],
+                                    hoverOffset: 4
+
+                                }]
+                            },options: { 
+                                    legend: {
+                                        labels: {
+                                            fontColor: "white",
+                                            fontSize: 15
+                                        }
+                                    },
+                            }
+                             
+                    })
+
+                    //Chart2
+
+                    var ctx = document.getElementById('chartnew').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: avguser,
+                            datasets: [{
+                                label: "Message Count",
+                                data: avguserword,
+                                backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(54, 162, 235)',
+                                    'rgba(153, 102, 255)',
+                                    'rgba(255, 159, 64)',
+                                    'rgba(250, 157, 60)',
+                                    'rgba(227, 122, 219)',
+                                    'rgba(227, 122, 219)'
+                                    ],
+                                borderWidth: 2.5
+                            }]
+                        },options: {
+                                scales: {
+                                        xAxes: [{ 
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                        yAxes: [{
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                    }
+                            }
+                        
+                    })
+
+
+                    //Chart3
+
+                    var ctx = document.getElementById('chartnew1').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: days,
+                            datasets: [{
+                                label: "Messages Sent on Each Day Per Week",
+                                data: msgday,
+                                backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(54, 162, 235)',
+                                    'rgba(153, 102, 255)',
+                                    'rgba(255, 159, 64)',
+                                    'rgba(250, 157, 60)',
+                                    'rgba(227, 122, 219)',
+                                    'rgba(227, 122, 219)'
+                                    ],
+                                borderWidth: 2.5
+                            }]
+                        },options: {
+                                scales: {
+                                        xAxes: [{ 
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                        yAxes: [{
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                    }
+                            }
+                        
+                    })
+
+
+                    //Chart4
+
+                    var ctx = document.getElementById('chartnew2').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels:mediauser,
+                                datasets: [{
+                                    labels:mediauser,
+                                    data: mediacount,
+                                    backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(54, 162, 235)',
+                                    'rgba(153, 102, 255)',
+                                    'rgba(255, 159, 64)',
+                                    'rgba(250, 157, 60)',
+                                    'rgba(255, 208, 142)',
+                                    'rgb(233, 194, 191)'
+                                    ],
+                                    hoverOffset: 4
+
+                                }]
+                            },options: { 
+                                    legend: {
+                                        labels: {
+                                            fontColor: "white",
+                                            fontSize: 15
+                                        }
+                                    },
+                            }
+                             
+                    })
+
+                    //Chart 5
+
+                    var ctx = document.getElementById('chartnew3').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: time,
+                            datasets: [{
+                                label: "Time When Group was most Active",
+                                data: timecount,
+                                backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(250, 157, 60, 0.1)',
+                                        'rgba(250, 157, 62, 0.6)',
+                                        'rgba(250, 157, 50, 0.4)',
+                                        'rgba(250, 157, 40, 0.5)',
+                                        'rgba(250, 157, 10, 0.2)',
+                                        'rgba(250, 157, 30, 0.3)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(250, 157, 60, 0.1)'
+                                    ],
+                                    borderWidth: 2.5
+                            }]
+                        }, options: {
+                                scales: {
+                                        xAxes: [{ 
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                        yAxes: [{
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                    }
+                            }
+                        
+                    })
+
+
+                    //Chart 6
+
+                    var ctx = document.getElementById('chartnew4').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: df_18_month,
+                                datasets: [
+                                    {
+                                        label: 'Year 2018 Stats',
+                                        data: df_18_count,
+                                        backgroundColor: [
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            'rgb(7,238,238,1)',
+                                            
+
+                                          ],
+                                    },
+                                    {
+                                        label: 'Year 2019 Stats',
+                                        data: df_19_count,
+                                        backgroundColor: [
+                                
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                                'rgb(205, 225, 112)',
+                                            ],
+                                    },
+                                    {
+                                        label: 'Year 2020 Stats',
+                                        data: df_20_count,
+                                        backgroundColor: [
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                                'rgb(217, 81, 179)',
+                                            ],
+                                    },
+                                    {
+                                        label: 'Year 2021 Stats',
+                                        data: df_21_count,
+                                        backgroundColor: [
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                                'rgb(241, 40, 65)',
+                                            ],
+                                    },
+
+                                   
+                                ]
+
+                                
+                            },options: {
+                                plugins: {
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Bar Chart - Stacked'
+                                                },
+                                        },
+                                        responsive: true,
+                                        scales: {
+                                        x: {
+                                            stacked: true,
+                                            fontColor: "white"
+                                        },
+                                        y: {
+                                            stacked: true,
+                                            fontColor:"white"
+                                        },
+                                        legend: {
+                                            labels: {
+                                                fontColor: "white",
+                                                fontSize: 15
+                                            }
+                                        },
+                            
+                                },
+                                scales: {
+                                            xAxes: [{ 
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                            yAxes: [{
+                                                gridLines: {
+                                                    display: false,
+                                                },
+                                                ticks: {
+                                                fontColor: "#CCC",
+                                                fontSize:15,
+                                                },
+                                            }],
+                                    }
+                            }
+                    })
+
+
+
+
+
+
+
+
+                    
+
+
+
+                }
+            </script>
+            {%endblock%}
+
+            <!-- Optional JavaScript; choose one of the two! -->
+
+            <!-- Option 1: Bootstrap Bundle with Popper -->
+            <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js " integrity=" sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4 " crossorigin=" anonymous "></script>
+
+            <!-- Option 2: Separate Popper and Bootstrap JS -->
+            <!--
+    <script src=" https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js " integrity=" sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p " crossorigin=" anonymous "></script>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js " integrity=" sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT " crossorigin=" anonymous "></script>
+    -->
+</body>
+
+</html>
