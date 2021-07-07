@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    df = pd.read_csv('WhatAppDataforDash.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/mv1249/WhatsappTextAnalysis/main/WhatAppDataforDash.csv')
     message_list = list(df['Message'])
     totalmsgs = len(message_list)
     media = np.sum(df['MediaCount'])
